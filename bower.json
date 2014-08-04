@@ -1,0 +1,24 @@
+{
+  "name": "code-injector",
+  "version": "1.0.0",
+  "authors": [
+    "Yaroslav Konoplov <the.yivo@gmail.com>"
+  ],
+  "description": "Chrome extension",
+  "main": "background.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "jquery-ui": "~1.11.0",
+    "underscore": "~1.6.0",
+    "backbone": "~1.1.2",
+    "pure": "~0.5.0"
+  }
+}

@@ -1,0 +1,1 @@
+function openOptionsPage(){var e=chrome.extension.getURL("options.html");chrome.tabs.query({},function(o){for(var t=!1,n=0,r=o.length;r>n;++n)if(t=e===o[n].url)return void chrome.tabs.update(o[n].id,{selected:!0});t===!1&&chrome.tabs.create({url:"options.html"})})}chrome.browserAction.onClicked.addListener(function(){openOptionsPage()});

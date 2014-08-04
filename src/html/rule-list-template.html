@@ -1,0 +1,17 @@
+<script type="text/template" id="rule-list-template">
+    <legend>Rules<a class="pure-button add-button js-action-add" href="#">Add</a></legend>
+    <table class="pure-table">
+        <tbody><%
+        if (typeof items !== 'undefined') {
+        _.each(items, function(item) {
+        %><tr class="js-rule" data-id="<%=item.id%>">
+            <td><%=item.name%></td>
+            <td><%=renderSwitcher(item.enabled)%></td>
+            <td><a class="pure-button pure-button-primary js-action-edit" href="#">Edit</a></td>
+            <td><a class="pure-button remove-button js-action-remove" href="#">Delete</a></td>
+        </tr><%
+        });
+        }
+        %></tbody>
+    </table>
+</script>

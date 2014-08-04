@@ -1,0 +1,108 @@
+.wrapper {
+    width: 800px;
+    margin: 0 auto;
+    padding-top: 20px;
+}
+
+.remove-button,
+.add-button,
+.switcher,
+.cancel-button {
+    color: white;
+    border-radius: 4px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.add-button {
+    background: rgb(28, 184, 65);
+}
+
+.remove-button, .cancel-button {
+    background: rgb(202, 60, 60);
+}
+
+.switcher.off {
+    background: rgb(223, 117, 20);
+}
+
+.switcher.on {
+    background: rgb(66, 184, 221);
+}
+
+.save-button, .cancel-button {
+    display: inline-block;
+
+    margin-top: 15px;
+}
+
+.cancel-button {
+    margin-left: 10px;
+}
+
+legend {
+    display: block;
+    width: 100%;
+    padding: 0.3em 0;
+    margin-bottom: 0.3em;
+    color: #333;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.pure-table {
+    margin: 0 auto;
+    border: 0;
+}
+
+.pure-table td {
+    border: 0;
+}
+
+.pure-table thead {
+    background: none;
+}
+
+.pure-table.bottom-bordered tr {
+    border-bottom: 1px solid black;
+}
+
+.pure-button {
+    border-radius: 4px;
+}
+
+legend .pure-button {
+    float: right;
+    margin-top: -15px;
+    margin-right: 16px;
+}
+
+form .rule-configuration-category {
+    margin: 25px 0;
+}
+
+form .rule-configuration-category.first {
+    margin: 0 0 25px 0;
+}
+
+form .control {
+    text-align: center;
+}
+
+#list-region, #form-region {
+    position: relative;
+}
+
+#form-region {
+    display: none;
+}
+
+.switcher {
+    -webkit-transition: 150ms;
+}
+
+textarea {
+    font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+}
+
+form .ui-sortable .list-item:hover {
+    cursor: move;
+}

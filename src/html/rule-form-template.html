@@ -1,0 +1,78 @@
+<script type="text/template" id="rule-form-template">
+    <form class="pure-form">
+        <fieldset>
+            <div class="rule-configuration-category first">
+                <legend>Rule</legend>
+                <table class="pure-table">
+                    <tbody>
+                    <tr>
+                        <td><%=renderSwitcher(enabled)%></td>
+                        <td><input id="name" type="text" name="name" value="<%=name%>" class="pure-input" placeholder="Name"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="rule-configuration-category">
+                <legend>Targets<a class="pure-button add-button js-action-add" href="#">Add</a></legend>
+                <table class="pure-table js-list" data-subject="target">
+                    <tbody><%
+                    if (typeof targets !== 'undefined') {
+                    _.each(targets, function(target) {
+                    %><tr class="list-item js-list-item">
+                        <td><%=renderTextarea({
+                            value : target,
+                            placeholder : "Regular expression",
+                            rows : 1, cols : 50})
+                            %></td>
+                        <td><a class="pure-button remove-button js-action-remove" href="#">Delete</a></td>
+                    </tr><%
+                    });
+                    }
+                    %></tbody>
+                </table>
+            </div>
+            <div class="rule-configuration-category">
+                <legend>CSS<a class="pure-button add-button js-action-add" href="#">Add</a></legend>
+                <table class="pure-table js-list" data-subject="css">
+                    <tbody class="ui-sortable"><%
+                    if (typeof css !== 'undefined') {
+                    _.each(css, function(item) {
+                    %><tr class="list-item js-list-item">
+                        <td><%=renderTextarea({
+                            value : item.code || item.filepath,
+                            placeholder : "Source code or filepath",
+                            rows : 2, cols : 50})
+                            %></td>
+                        <td><a class="pure-button remove-button js-action-remove" href="#">Delete</a></td>
+                    </tr><%
+                    });
+                    }
+                    %></tbody>
+                </table>
+            </div>
+            <div class="rule-configuration-category">
+                <legend>JavaScript<a class="pure-button add-button js-action-add" href="#">Add</a></legend>
+                <table class="pure-table js-list" data-subject="js">
+                    <tbody class="ui-sortable"><%
+                    if (typeof js !== 'undefined') {
+                    _.each(js, function(item) {
+                    %><tr class="list-item js-list-item">
+                        <td><%=renderTextarea({
+                            value : item.code || item.filepath,
+                            placeholder : "Source code or filepath",
+                            rows : 2, cols : 50})
+                            %></td>
+                        <td><a class="pure-button remove-button js-action-remove" href="#">Delete</a></td>
+                    </tr><%
+                    });
+                    }
+                    %></tbody>
+                </table>
+            </div>
+            <div class="control">
+                <button type="submit" class="pure-button pure-button-primary save-button js-action-save">Save</button>
+                <button type="submit" class="pure-button pure-button-primary cancel-button js-action-cancel">Cancel</button>
+            </div>
+        </fieldset>
+    </form>
+</script>
