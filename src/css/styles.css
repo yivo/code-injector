@@ -91,10 +91,6 @@ form .control {
     position: relative;
 }
 
-#form-region {
-    display: none;
-}
-
 .switcher {
     -webkit-transition: 150ms;
 }
@@ -105,4 +101,22 @@ textarea {
 
 form .ui-sortable .list-item:hover {
     cursor: move;
+}
+@-webkit-keyframes appear {
+    0% {
+        top: 50px;
+        opacity: 0;
+    }
+    100% {
+        top: 0;
+        opacity: 1;
+    }
+}
+.appear {
+    -webkit-animation: appear 200ms ease-in-out;
+    -webkit-animation-fill-mode: backwards;
+    display: block!important;
+}
+.region {
+    display: none;
 }
