@@ -14,15 +14,15 @@
                                 if (typeof runAt === 'undefined') {
                                     var runAt;
                                 }
-                                var list = ['document_start', 'document_end', 'document_idle'];
+                                var list = ['page-dom-content-loaded', 'page-committed', 'page-completed'];
                                 _.each(list, function(item) {
                                     %><option<%
                                         if (item === runAt) {
                                             %> selected="selected"<%
                                         }
-                                        %>><%=item%></option><%
+                                    %>><%=item%></option><%
                                 });
-                            %></select>
+                                %></select>
                         </td>
                     </tr>
                     </tbody>

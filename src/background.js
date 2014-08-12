@@ -1,5 +1,13 @@
 (function() {
-    var rules;
+    'use strict';
+
+    var allRules;
+    var rulesInjectedAt = {};
+    var filterConditions = {
+        enabled: true,
+        scripts: true,
+        targets: true
+    };
 
     function openOptionsPage() {
         var optionsUrl = chrome.extension.getURL('options.html');
@@ -23,7 +31,6 @@
 
     function allTabs(cb) {
         return chrome.tabs.query({
-            currentWindow: true,
             windowType: 'normal'
         }, cb);
     }
@@ -70,6 +77,7 @@
         var onlyEnabled = o.enabled;
         var withScripts = o.scripts;
         var withTargets = o.targets;
+        var runAt = o.runAt;
         var i = 0;
         var len = rules.length;
         var rule;
@@ -78,6 +86,7 @@
             rule = rules[i];
             if (onlyEnabled && !rule.enabled) continue;
             if (withTargets && !(rule.targets || rule.targets.length)) continue;
+            if (runAt && rule.runAt !== runAt) continue;
             var hasCss = rule.css && rule.css.length;
             var hasJs = rule.js && rule.js.length;
             if (withScripts && !(hasCss || hasJs)) continue;
@@ -87,24 +96,24 @@
         return result;
     }
 
-    function inject(assetsType, tab, rule) {
-        var assets = rule[assetsType];
-        if (!assets || assets.length < 1) return;
-        var id = tab.id;
-        var i, len, item;
-        var method = assetsType === 'js' ? 'executeScript' : 'insertCSS';
-        for (i = 0, len = assets.length; i < len; ++i) {
-            item = assets[i];
-            chrome.tabs[method](id, {
-                code: item.code,
-                file: item.filepath,
-                runAt: item.runAt
-            });
-        }
+    function applyRules(tab, rules) {
+        chrome.tabs.sendMessage(tab.id, {
+            command: 'apply-rules',
+            rules: rules
+        });
     }
 
-    function onPageCommitted(o) {
+    function onWebNavigationEvent(runAt, o) {
         if (isFrame(o) || isChromeUrl(o.url)) return;
+        var rules = rulesInjectedAt[runAt];
+
+        if (!rules) {
+            filterConditions.runAt = runAt;
+            rules = rulesInjectedAt[runAt] = filterRules(allRules, filterConditions);
+            filterConditions.runAt = null;
+        }
+
+        if (!rules.length) return;
 
         allTabs(function(tabs) {
             var id = o.tabId;
@@ -113,34 +122,35 @@
 
             var i, len, rule;
             var url = tab.url;
+            var matchedRules = [];
 
             for (i = 0, len = rules.length; i < len; ++i) {
                 rule = rules[i];
                 if (!ruleMatchesUrl(rule, url)) continue;
-                inject('css', tab, rule);
-                inject('js', tab, rule);
+                matchedRules.push(rule);
             }
-        });
 
+            applyRules(tab, matchedRules);
+        });
     }
 
     function onStorageChange(changes, namespace) {
-        rules = filterRules(changes.injector.newValue.rules, {
-            enabled: true,
-            scripts: true,
-            targets: true
-        });
+        allRules = changes.injector.newValue.rules;
+        rulesInjectedAt = {};
     }
 
     function bindEvents() {
-        chrome.webNavigation.onCommitted.addListener(onPageCommitted);
+        chrome.webNavigation.onCommitted.addListener(onWebNavigationEvent.bind(null, 'page-committed'));
+        chrome.webNavigation.onCompleted.addListener(onWebNavigationEvent.bind(null, 'page-completed'));
+        chrome.webNavigation.onDOMContentLoaded.addListener(onWebNavigationEvent.bind(null, 'page-dom-content-loaded'));
         chrome.storage.onChanged.addListener(onStorageChange);
     }
 
     chrome.storage.sync.get('injector', function(data) {
-        rules = data.injector ? data.injector.rules || [] : [];
+        allRules = data.injector ? data.injector.rules || [] : [];
         bindEvents();
     });
 
     chrome.browserAction.onClicked.addListener(openOptionsPage);
+
 })();
