@@ -2,7 +2,7 @@
     'use strict';
 
     var allRules;
-    var rulesInjectedAt = {};
+    var rulesRunAt = {};
     var filterConditions = {
         enabled: true,
         scripts: true,
@@ -105,11 +105,11 @@
 
     function onWebNavigationEvent(runAt, o) {
         if (isFrame(o) || isChromeUrl(o.url)) return;
-        var rules = rulesInjectedAt[runAt];
+        var rules = rulesRunAt[runAt];
 
         if (!rules) {
             filterConditions.runAt = runAt;
-            rules = rulesInjectedAt[runAt] = filterRules(allRules, filterConditions);
+            rules = rulesRunAt[runAt] = filterRules(allRules, filterConditions);
             filterConditions.runAt = null;
         }
 
@@ -136,7 +136,7 @@
 
     function onStorageChange(changes, namespace) {
         allRules = changes.injector.newValue.rules;
-        rulesInjectedAt = {};
+        rulesRunAt = {};
     }
 
     function bindEvents() {
