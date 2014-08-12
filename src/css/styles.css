@@ -120,3 +120,6 @@ form .ui-sortable .list-item:hover {
 .region {
     display: none;
 }
+.pure-form label {
+    margin: 0.5em 10px 0 0.2em;
+}

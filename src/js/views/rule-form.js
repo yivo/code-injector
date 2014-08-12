@@ -38,7 +38,8 @@ Views.RuleForm = Views.Base.extend({
 			name : this.$('input[name=name]').val(),
 			targets : this.mapTargetValues(),
 			css : this.mapScriptValues('css'),
-			js : this.mapScriptValues('js')
+			js : this.mapScriptValues('js'),
+            runAt: this.$('#run-at').val()
 		};
 		
 	},

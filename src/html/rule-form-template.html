@@ -8,6 +8,14 @@
                     <tr>
                         <td><%=renderSwitcher(enabled)%></td>
                         <td><input id="name" type="text" name="name" value="<%=name%>" class="pure-input" placeholder="Name"></td>
+                        <td>
+                            <label for="run-at">Run at</label>
+                            <select id="run-at" class="pure-input">
+                                <option>document_start</option>
+                                <option>document_end</option>
+                                <option>document_idle</option>
+                            </select>
+                        </td>
                     </tr>
                     </tbody>
                 </table>

@@ -11,7 +11,6 @@ Entities.Injector = Entities.Model.extend({
 		var self = this;
 		
 		chrome.storage.sync.get('injector', function(data) {
-            console.log(data);
 			self.set( _.omit(data.injector, 'rules') );
 			self.rules.reset(data.injector ? data.injector.rules : null);
 			defer.resolve(self);
