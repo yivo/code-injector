@@ -10,7 +10,8 @@ Entities.Injector = Entities.Model.extend({
 		var defer = $.Deferred();
 		var self = this;
 		
-		chrome.storage.local.get('injector', function(data) {
+		chrome.storage.sync.get('injector', function(data) {
+            console.log(data);
 			self.set( _.omit(data.injector, 'rules') );
 			self.rules.reset(data.injector ? data.injector.rules : null);
 			defer.resolve(self);
@@ -20,7 +21,7 @@ Entities.Injector = Entities.Model.extend({
 	},
 	
 	save : function() {
-		chrome.storage.local.set({ injector : this.toJSON() });
+		chrome.storage.sync.set({ injector : this.toJSON() });
 	},
 	
 	toJSON : function() {

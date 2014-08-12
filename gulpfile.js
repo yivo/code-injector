@@ -66,7 +66,7 @@ gulp.task('build-release', function() {
 });
 
 gulp.task('build', function() {
-    return gulp.start('html', 'js', 'css', 'bg-scripts', 'content-scripts', 'ext-configs', 'images');
+    return gulp.start('html', 'js', 'css', 'bg-scripts', 'ext-configs', 'images');
 });
 
 gulp.task('js', function() {
@@ -103,14 +103,6 @@ gulp.task('bg-scripts', function() {
         bg.pipe(e('uglify')());
     }
     return bg.pipe(gulp.dest(buildpath));
-});
-
-gulp.task('content-scripts', function() {
-    var cs = gulp.src(srcpath + 'injector.js');
-    if (process.env.NODE_ENV === 'production') {
-        cs.pipe(e('uglify')());
-    }
-    return cs.pipe(gulp.dest(buildpath));
 });
 
 gulp.task('ext-configs', function() {
