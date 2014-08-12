@@ -3,7 +3,7 @@ Entities.Injector = Entities.Model.extend({
 	initialize : function(attrs, opts) {
 		this.rules = opts.rules;
 		this.save = _.debounce(this.save.bind(this), 30);
-		this.listenTo(this.rules, 'add remove change', this.save);
+		this.listenTo(this.rules, 'add remove change save', this.save);
 	},
 	
 	fetch : function() {

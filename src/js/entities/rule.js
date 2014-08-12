@@ -1,14 +1,15 @@
 Entities.Rule = Entities.Model.extend({
 
-	defaults : {
-		enabled : true,
-		name : ''
-	},
-	
-	initialize : function() {
-		if (!this.get('id') || !this.id) {
-			this.set('id', _.uniqueId());
-		}
-	}
+    defaults: {
+        enabled: true,
+        name: '',
+        position: 0
+    },
+
+    initialize: function() {
+        if (!this.get('id') || !this.id) {
+            this.set('id', guid());
+        }
+    }
 
 });

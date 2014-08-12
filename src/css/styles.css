@@ -99,7 +99,7 @@ textarea {
     font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
 }
 
-form .ui-sortable .list-item:hover {
+.ui-sortable .list-item:hover, .ui-sortable .rule {
     cursor: move;
 }
 @-webkit-keyframes appear {
